@@ -1,0 +1,19 @@
+%%%% cm, March 2022, code to extract the information from the gencode files to construct the decoy files
+%%%% downloaded the followoing gencode files from here: https://www.gencodegenes.org/mouse/
+%%%%% GRCm39.primary_assembly.genome.fa.gz
+%%%%% gencode.vM28.transcripts.fa.gz
+%%%%% GRCm39.genome.fa.gz
+%%%%% gencode.vM28.annotation.gtf.gz
+
+
+cd /christinemuheim/deskop/Salmon_index_files
+
+%%% salmon indexing requires the names of the genome targets, can be extracted using grep
+
+grep “^>” <(gunzip -c GRCm39.primary_assembly.genome.fa.gz) | cut -d “ “ -f 1 > decoy_mouse.txt
+sed -i.bak -e ‘s/>//g’ decoys_mouse.txt
+
+%%% this creates two text files, the decoy_mouse.txt and a decoy_mouse.txt.bak
+
+%% also Salmon needs the concatenated transcriptome and genome reference file for the index, order matters here
+cat gencode.vM28.transcripts.fa.gz GRCm39.primary_assembly.genome.fa.gz > gentrome_transcripts_mouse.fa.gz
