@@ -54,13 +54,6 @@ P24_P30_P90_UP <- read.table(file1,header = TRUE)
 file2 <-here("Data","Genes4HeatMap","P24_P30_P90_DOWN_UQ.txt")
 P24_P30_P90_DOWN <- read.table(file2,header = TRUE)
 
-# alternative approach use only genes with terms that are at least 4 fold enriched
-# note: UP list with genes from 2 terms, DOWN list with genes from 2 terms
-# file1 <-here("Data","Genes4HeatMap","P24_P30_P90_UP_4FoldChange.txt")
-# P24_P30_P90_UP <- read.table(file1,header = TRUE)
-# 
-# file2 <-here("Data","Genes4HeatMap","P24_P30_P90_DOWN_4FoldChange.txt")
-# P24_P30_P90_DOWN <- read.table(file2,header = TRUE)
 
 
 
@@ -107,13 +100,6 @@ AllAges_UP <- read.table(file1,header = TRUE)
 file2 <-here("Data","Genes4HeatMap","AllAges_DOWN_UQ.txt")
 AllAges_DOWN <- read.table(file2,header = TRUE)
 
-# alternative approach use only genes with terms that are at least 4 fold enriched
-# # note, the UP file does not change, the DOWN files comes from 2 terms
-# file1 <-here("Data","Genes4HeatMap","AllAges_UP_4FoldChange.txt")
-# AllAges_UP <- read.table(file1,header = TRUE)
-# 
-# file2 <-here("Data","Genes4HeatMap","AllAges_DOWN_4FoldChange.txt")
-# AllAges_DOWN <- read.table(file2,header = TRUE)
 
 AllAges <- rbind(AllAges_UP,AllAges_DOWN)
 # make a new dataframe and find the foldChanges for each age group 
