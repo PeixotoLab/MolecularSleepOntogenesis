@@ -2,19 +2,19 @@
 This repository contains the code and analyses for the analysis of bulk RNA-seq analysis of sleep deprivation in wildtype mutant mice at different developmental stages.
 Paper: "Ontogenesis of the molecular response to sleep loss", 2023
 
-##Authors:
+## Authors:
 Christine Muheim (christine.muheim@wsu.edu)
 Katie Ford (kaitlyn.ford@wsu.edu)
 Lucia Peixoto (lucia.peixoto@wsu.edu)
 
 
-##Data
+## Data
 bulk RNA-seq from prefrontal cortex
 
 2023-01-09 The FASTQ files for the WT and Shank 3 mutant bulk RNA-seq samples are available on GEO in project: GSE211301 (
 Download GEO metadata
 
-#SALMON 
+# SALMON 
 to pseudo align the raw reads, we use Salmon. 
 
 
@@ -87,3 +87,6 @@ Create SummarizedExperiment object
 Here we import the quant.sf files produced by salmon quant into R/Bioconductor using the tximeta package with the 01_quantification/bulk/run-tximeta.R script. We save the SummarizedExperiment object at the transcript level (and gene level) as a .RDS file: data/se_mouse_sleep_complete.rds (and data/gse_mouse_sleep_complete.rds)
 
 Helpful vignette: https://bioconductor.org/packages/devel/bioc/vignettes/tximeta/inst/doc/tximeta.html
+
+# RUVs 
+
