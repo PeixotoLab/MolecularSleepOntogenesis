@@ -14,6 +14,11 @@ library(gplots)
 library(pheatmap)
 library(here)
 
+ink("sessionInfo_heatmaps.txt")
+sessionInfo()
+sink()
+
+
 #  first load the normalized count matrix.
 fileP16 <-here("Data","RUVOutput","HCvsSD_P16_ALL.txt")
 fileP24 <-here("Data","RUVOutput","HCvsSD_P24_ALL.txt")
@@ -45,53 +50,7 @@ masterdf$ID <- NULL
 #  define color range, make blue red and white
 colors <- colorRampPalette(rev(brewer.pal(11, "RdBu")) )(255)
 
-# load the gene list of interest
-#  First, genes with foldchanges in the Upper Quartile in Function Terms Up and Down, in the P24/P30/P90 group (3 for each direction)
-# note: UP list with genes from 6 terms, DOWN list with genes from 2 terms
-file1 <-here("Data","Genes4HeatMap","P24_P30_P90_UP_UQ.txt")
-P24_P30_P90_UP <- read.table(file1,header = TRUE)
-
-file2 <-here("Data","Genes4HeatMap","P24_P30_P90_DOWN_UQ.txt")
-P24_P30_P90_DOWN <- read.table(file2,header = TRUE)
-
-
-
-
-P24_P30_P90 <- rbind(P24_P30_P90_UP,P24_P30_P90_DOWN)
-# make a new dataframe and find the foldChanges for each age group 
-
-index1<- match(P24_P30_P90[,1],rownames(masterdf))
-dfnew1 <- masterdf[index1,]
-
-#  plot the log2FC for all ages
-#  first extract only those values and make sure to keep the rownames with the unique IDs
-FCmat1 <- rownames(dfnew1)
-FCmat1 <- cbind(dfnew1$logFC_P16,dfnew1$logFC_P24,dfnew1$logFC_P30,dfnew1$logFC_P90)
-rownames(FCmat1) <- rownames(dfnew1)
-#  add the gene symbol in for plotting
-index2 <-match(P24_P30_P90[,1],rownames(FCmat1))
-symbol <-P24_P30_P90[index2,2]
-rownames(FCmat1)<-symbol
-colnames(FCmat1)<-c("P16","P24","P30","P90")
-FCmat1 <- FCmat1[,2:4]
-FCmat1 <- unique(FCmat1)
-
-# plot as heatmap, euclidean distance with Ward's linkage
-# euclidean method: \sqrt{\sum (i)\lef(x(i)-y(i)\right2}
-# canberra method: Σ(|ai – bi|/(|ai|+|bi|)) absolute distance between two vectors divided by the sum of absolute of both vectors
-# manhattan method: Σ|ai – bi| absolute distance between two vectors
-heatmap.2(FCmat1, col = colors, Rowv=TRUE,Colv=NULL,
-          distfun = function(x) dist(x, method="euclidean"),
-          hclustfun = function(x) hclust(x, method="ward.D2"),
-          dendrogram="row",scale="none", trace=c("none"), 
-          key=TRUE,density.info=c("none"), key.title= NA, key.xlab="Log2 Foldchange SD/HC",main="DEG P24/P30/P90")
-
-# pheatmap(FCmat1,color=colors,kmeans_k=NA, scale="column",cluster_rows=TRUE, cluster_cols=FALSE)
-
-
-# # # # # # # # # # # # # # # # # # # # # #
-# # # # # # # # # # # # # # # # # # # # # # # 
-
+#############
 #  Group1, All Ages, genes with foldchanges in the Upper Quartile in Function Terms Up and Down, in the P24/P30/P90 group (3 for each direction)
 # note: 1 term for the UP list, 3 terms for the DOWN list
 file1 <-here("Data","Genes4HeatMap","AllAges_UP_UQ.txt")
@@ -131,13 +90,46 @@ heatmap.2(FCmat4, col = colors, Rowv=TRUE,Colv=NULL,
           dendrogram="row",scale="none", trace=c("none"), 
           key=TRUE,density.info=c("none"), key.title= NA, key.xlab="Log2 Foldchange SD/HC",main="DEG ALL ages ")
 
+#############
+# Group 2, Changed in P24-P30-P90
+# load the gene list of interest
+# note: UP list with genes from 6 terms, DOWN list with genes from 2 terms
+file1 <-here("Data","Genes4HeatMap","P24_P30_P90_UP_UQ.txt")
+P24_P30_P90_UP <- read.table(file1,header = TRUE)
 
-#  k-means clustering, using a k=3, because there genes come from around 3 therms mostly
-kmeansObj <- kmeans(FCmat4, centers = 3)
+file2 <-here("Data","Genes4HeatMap","P24_P30_P90_DOWN_UQ.txt")
+P24_P30_P90_DOWN <- read.table(file2,header = TRUE)
 
 
-heatmap(FCmat4 )
-# =======================================
-sink("sessionInfo_heatmaps.txt")
-sessionInfo()
-sink()
+
+P24_P30_P90 <- rbind(P24_P30_P90_UP,P24_P30_P90_DOWN)
+# make a new dataframe and find the fold2Changes for each age group 
+
+index1<- match(P24_P30_P90[,1],rownames(masterdf))
+dfnew1 <- masterdf[index1,]
+
+#  plot the log2FC for all ages
+#  first extract only those values and make sure to keep the rownames with the unique IDs
+FCmat1 <- rownames(dfnew1)
+FCmat1 <- cbind(dfnew1$logFC_P16,dfnew1$logFC_P24,dfnew1$logFC_P30,dfnew1$logFC_P90)
+rownames(FCmat1) <- rownames(dfnew1)
+#  add the gene symbol in for plotting
+index2 <-match(P24_P30_P90[,1],rownames(FCmat1))
+symbol <-P24_P30_P90[index2,2]
+rownames(FCmat1)<-symbol
+colnames(FCmat1)<-c("P16","P24","P30","P90")
+FCmat1 <- FCmat1[,2:4]
+FCmat1 <- unique(FCmat1)
+
+# plot as heatmap, euclidean distance with Ward's linkage
+# euclidean method: \sqrt{\sum (i)\lef(x(i)-y(i)\right2}
+# canberra method: Σ(|ai – bi|/(|ai|+|bi|)) absolute distance between two vectors divided by the sum of absolute of both vectors
+# manhattan method: Σ|ai – bi| absolute distance between two vectors
+heatmap.2(FCmat1, col = colors, Rowv=TRUE,Colv=NULL,
+          distfun = function(x) dist(x, method="euclidean"),
+          hclustfun = function(x) hclust(x, method="ward.D2"),
+          dendrogram="row",scale="none", trace=c("none"), 
+          key=TRUE,density.info=c("none"), key.title= NA, key.xlab="Log2 Foldchange SD/HC",main="DEG P24/P30/P90")
+
+
+
