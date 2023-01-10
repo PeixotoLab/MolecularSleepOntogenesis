@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 # Author:             Stephanie Hicks
 # Use tximeta to read in quant files (output from salmon quant) into SummarizedExperiment files
-# last modified by CM, March 2022, made sure gene level data has the inferental reps removed
+# last modified by Christine Muheim, March 2022, made sure gene level data has the inferental reps removed
 
 
   library(tximeta)
@@ -13,15 +13,15 @@
   library(here)
 
 # create new data folder to store R objects
-if(!file.exists(here("dataMarch"))){
-  dir.create(here("dataMarch"))
+if(!file.exists(here("Data"))){
+  dir.create(here("Data"))
 }
 
 # create linkedTranscriptome for decoys pipeline, direct to the index dir
-index_dir = here("IndexFilesMarch", "gencode.vM28-salmon-index-v1.0.0-mouse-withdecoys")
-fasta_path = here("IndexFilesMarch", "gencode.vM28.transcripts.fa.gz")
-gtf_path = here("IndexFilesMarch", "gencode.vM28.annotation.gtf.gz")
-json_file = here("IndexFilesMarch", paste0(basename(index_dir), ".json"))
+index_dir = here("IndexFiles", "gencode.vM28-salmon-index-v1.0.0-mouse-withdecoys")
+fasta_path = here("IndexFiles", "gencode.vM28.transcripts.fa.gz")
+gtf_path = here("IndexFiles", "gencode.vM28.annotation.gtf.gz")
+json_file = here("IndexFiles", paste0(basename(index_dir), ".json"))
 makeLinkedTxome(indexDir=index_dir, 
                 source="GENCODE", organism="Mus musculus", 
                 release="M28", genome="GRCm39", 
@@ -61,7 +61,7 @@ assayNames(se)
 rowRanges(se)
 
 # Save as a SummarizedExperiment object
-saveRDS(se, file = here("dataMarch", "se_mouse_sleep_complete.rds"))
+saveRDS(se, file = here("DataOut", "se_mouse_sleep_complete.rds"))
 
 
 # Summarize to gene level counts
@@ -73,4 +73,4 @@ assayNames(gse)
 rowRanges(gse)
 
 # Save as a SummarizedExperiment object
-saveRDS(gse, file = here("dataMarch", "gse_mouse_sleep_complete.rds"))
+saveRDS(gse, file = here("DataOut", "gse_mouse_sleep_complete.rds"))
