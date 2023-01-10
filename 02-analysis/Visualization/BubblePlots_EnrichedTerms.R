@@ -12,10 +12,7 @@ library(gridExtra)
 library(here)
 
 
-# =======================================
-# =======================================
-# =======================================
-sink("sessionInfo_BubbplePlots2.txt")
+sink("sessionInfo_BubbplePlots.txt")
 sessionInfo()
 sink()
 
