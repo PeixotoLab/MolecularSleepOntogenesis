@@ -58,12 +58,19 @@ PATH=$PATH:/users/christinemuheim/data/salmon-latest_linux_x86_64/bin
 You can check to make sure salmon has been upgraded correctly using salmon -h inside terminal (or help with specific parts of using salmon using e.g. salmon index -h for help with the index step).
 
 The -t argument is the input transcripts file.
+
 The -i argument is the index file to create.
+
 The -d argument is the decoy sequence.
+
 The --keepDuplicates argument forces all duplicate transcripts (for example, multiple unspliced transcript of the same gene that are identical for example) that appear in the input will be retained and quantified separately. If you keep the duplicates they will be assigned identical expression levels since salmon can’t tell them apart. When you aggregate on the gene level, this will not make a difference any more. Therefore, I do not keep the duplicates as we are interested in gene level aggregation.
+
 The --gencode flag will handle the composite fasta headers in GENCODE transcript fasta files and split the transcript name at the first '|' character.
+
 The --threads argument says how many threads to use when building the index.
-The salmon index is built using the 01_quantification/build-index-salmon.sh file (used 4 cores). The bulk RNA-seq index uses the decoys.txt and is built from the combined FASTA file (gentrome_transcripts_mouse.fa.gz). The snRNA-seq index uses the GRCm39.primary_assembly.genome.chrnames.txt and is built from the combined FASTA file.
+
+The salmon index is built using the 01_quantification/SalmonIndex_vM28.sh file (used 4 cores). The bulk RNA-seq index uses the decoys.txt and is built from the combined FASTA file (gentrome_transcripts_mouse.fa.gz).
+
 
 #### Running salmon quant
 We use the index (gencode.vM28-salmon-index-v1.0.0-mouse-withdecoy) created by Build-SalmonIndex.sh for the bulk RNA-seq analysis. See the 01_quantification/SalmonQuant.sh file. This script quantifies reads at the transcript level, which can be summarized later at the gene level using the tximeta::summarizeToGene() function.
