@@ -63,8 +63,6 @@ The -i argument is the index file to create.
 
 The -d argument is the decoy sequence.
 
-The --keepDuplicates argument forces all duplicate transcripts (for example, multiple unspliced transcript of the same gene that are identical for example) that appear in the input will be retained and quantified separately. If you keep the duplicates they will be assigned identical expression levels since salmon can’t tell them apart. When you aggregate on the gene level, this will not make a difference any more. Therefore, I do not keep the duplicates as we are interested in gene level aggregation.
-
 The --gencode flag will handle the composite fasta headers in GENCODE transcript fasta files and split the transcript name at the first '|' character.
 
 The --threads argument says how many threads to use when building the index.
