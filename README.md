@@ -19,8 +19,8 @@ download GENCODE files
 Run the shell script 01_quantification/download-gencode-files.R. This downloads GENCODE files and creates the files necessary for salmon. Reference files were obtained for mouse release version M28.
 Files needed:
 GRCm38.primary_assembly.genome.fa.gz - nucleotide (DNA) sequences of the GRCm38 primary genome assembly.
-gencode.vM25.transcripts.fa.gz - nucleotide (DNA) sequences of all transcripts on reference chromosomes.
-gencode.vM25.annotation.gtf.gz - gene annotation on the reference chromosomes (i.e. for humans, these are chromosomes 1 to 22, X, and Y), i.e. locations of genes and other information about the genes, gene structure
+gencode.vM28.transcripts.fa.gz - nucleotide (DNA) sequences of all transcripts on reference chromosomes.
+gencode.vM28.annotation.gtf.gz - gene annotation on the reference chromosomes (i.e. for humans, these are chromosomes 1 to 22, X, and Y), i.e. locations of genes and other information about the genes, gene structure
 Gene transfer format (GTF) is a file format used to hold information about gene structure. It is a tab-delimited text format based on the general feature format (GFF), but contains some additional conventions specific to gene information.
 
 The specific locations of where the files were pulled from are from here:
@@ -84,7 +84,7 @@ Helpful vignette: https://bioconductor.org/packages/devel/bioc/vignettes/tximeta
 ## RUVs
 
 The vignette for RUVs can be found here: https://bioconductor.org/packages/release/bioc/manuals/RUVSeq/man/RUVSeq.pdf. 
-We run RUVs with biological replicas and a negative gene list (02-analysis/RUV/Data/NegControl_Genes.txt) and tested the efficacy with a list of genes (02-analysis/RUV/Data/PosControl_Genes.txt) known to be changed by sleep deprivation.
+We run RUVs with biological replicats and a negative gene list (02-analysis/RUV/Data/NegControl_Genes.txt) and tested the efficacy with a list of genes (02-analysis/RUV/Data/PosControl_Genes.txt) known to be changed by sleep deprivation.
 
 ## Visualization
 After RUVs we use Venn-Euler.R to get venn (or Euler) diagrams and the list of interest for enrichment analysis (DAVID).
