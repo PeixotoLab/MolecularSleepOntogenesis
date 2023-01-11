@@ -82,7 +82,7 @@ Helpful vignette: https://bioconductor.org/packages/devel/bioc/vignettes/tximeta
 ## RUVs
 
 The vignette for RUVs can be found here: https://bioconductor.org/packages/release/bioc/manuals/RUVSeq/man/RUVSeq.pdf. 
-We run RUVs with biological replicats and a negative gene list (02-analysis/RUV/Data/NegControl_Genes.txt) and tested the efficacy with a list of genes (02-analysis/RUV/Data/PosControl_Genes.txt) known to be changed by sleep deprivation.
+We run RUVs with biological replicates and a negative gene list (02-analysis/RUV/Data/NegControl_Genes.txt) and tested the efficacy with a list of genes (02-analysis/RUV/Data/PosControl_Genes.txt) known to be changed by sleep deprivation.
 
 ## Visualization
 After RUVs we use Venn-Euler.R to get venn (or Euler) diagrams and the list of interest for enrichment analysis (DAVID).
